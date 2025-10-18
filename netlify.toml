@@ -1,26 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "out"
+  publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-# Redirect rules
-[[redirects]]
-  from = "/"
-  to = "/login"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/home"
-  to = "/products"
-  status = 302
-  force = true
-
-# Catch-all route (optional)
-[[redirects]]
-  from = "/*"
-  to = "/login"
-  status = 302
-  force = true
