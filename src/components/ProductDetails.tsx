@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Image from "next/image";
+import { Product } from "@/types/product";
 
 const ProductDetailsPage = () => {
   const { slug } = useParams(); 
   const router = useRouter();
 
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -30,8 +32,12 @@ const ProductDetailsPage = () => {
         if (!res.ok) throw new Error(`Error fetching product: ${res.status}`);
         const data = await res.json();
         setProduct(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred.");
+        }
       } finally {
         setLoading(false);
       }
@@ -53,6 +59,10 @@ const ProductDetailsPage = () => {
         return;
       }
 
+      if (!product) {
+        toast.error("Product not found.");
+        return;
+      }
       const res = await fetch(`https://api.bitechx.com/products/${product.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -62,8 +72,12 @@ const ProductDetailsPage = () => {
 
       toast.success("Product deleted successfully!");
       router.push("/products");
-    } catch (err: any) {
-      toast.error("Error deleting product: " + err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error("Error deleting product: " + err.message);
+      } else {
+        toast.error("Error deleting product: Unknown error");
+      }
     } finally {
       setIsDeleting(false);
     }
@@ -79,16 +93,15 @@ const ProductDetailsPage = () => {
       <Toaster position="top-center" />
 
       {/* Product Image */}
-      <div className="w-full h-96 bg-gray-100 mb-6">
-        <img
-          src={
-            product.images?.[0] ||
-            "https://via.placeholder.com/400x300?text=No+Image"
-          }
-          alt={product.name}
-          className="w-full h-full object-cover rounded-xl"
-        />
-      </div>
+      <div className="relative w-full h-96 bg-gray-100 mb-6 rounded-xl overflow-hidden">
+  <Image
+  src={`/api/image-proxy?url=${encodeURIComponent(product.images?.[0] || "https://via.placeholder.com/400x300")}`}
+  alt={product.name}
+  fill
+  className="object-cover"
+/>
+
+</div>
 
       {/* Product Info */}
       <h1 className="text-3xl font-bold mb-3">{product.name}</h1>
@@ -106,8 +119,9 @@ const ProductDetailsPage = () => {
       {/* Action Buttons */}
       <div className="flex gap-4">
         <button
-          onClick={() => router.push(`/products/edit/${product.id}`)}
+          onClick={() => product && router.push(`/products/edit/${product.id}`)}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 transition"
+          disabled={!product}
         >
           Edit
         </button>

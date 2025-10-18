@@ -1,13 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Product } from "@/types/product";
+import Image from "next/image";
 
 const LIMIT = 8;
 const DEBOUNCE_DELAY = 500;
 
 const ProductPage = () => {
   const router = useRouter();
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [offset, setOffset] = useState(0);
@@ -114,17 +116,15 @@ const ProductPage = () => {
           ) : (
             products.map((product) => (
               <div
-                key={product._id || product.id}
+                key={product.id || product.id}
                 className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 relative"
               >
                 {/* Image */}
                 <div className="relative w-full h-56 bg-gray-100 overflow-hidden">
-                  <img
-                    src={
-                      product.images?.[0] ||
-                      "https://via.placeholder.com/400x300?text=No+Image"
-                    }
+                  <Image
+                    src={`/api/image-proxy?url=${encodeURIComponent(product.images?.[0] || "https://via.placeholder.com/400x300")}`}
                     alt={product.name}
+                    fill
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
