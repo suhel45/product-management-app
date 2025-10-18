@@ -32,7 +32,7 @@ const ProductPage = () => {
 
       const token = localStorage.getItem("token");
       if (!token) {
-        setError("No token found! Please log in first.");
+        setError(" Please log in first.");
         setLoading(false);
         return;
       }

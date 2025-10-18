@@ -20,7 +20,7 @@ const EditProductForm = ({ id }: { id: string }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // ✅ Fetch single product details
+  // single product details
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -50,13 +50,12 @@ const EditProductForm = ({ id }: { id: string }) => {
     if (id) fetchProduct();
   }, [id]);
 
-  // ✅ Handle form input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Update product via PUT request
+  //Update product via 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -85,7 +84,7 @@ const EditProductForm = ({ id }: { id: string }) => {
         return;
       }
 
-      setSuccess("✅ Product updated successfully!");
+      setSuccess("Product updated successfully!");
       setLoading(false);
 
       setTimeout(() => {
@@ -132,7 +131,7 @@ const EditProductForm = ({ id }: { id: string }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer text-white py-2.5 rounded-lg font-medium transition"
         >
           {loading ? "Updating..." : "Update Product"}
         </button>
