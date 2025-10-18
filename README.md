@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Product Management App
 
-## Getting Started
+### Live Demo 👉 [https://product-management-app-sigma.vercel.app/](https://product-management-app-sigma.vercel.app/)
 
-First, run the development server:
+A full-stack **Product Management Application** built with **Next.js 14 (App Router)**, **TypeScript**, **Redux Toolkit Query**, and **Tailwind CSS**.  
+It allows users to **manage products**, **add/edit categories**, and provides a **modern, responsive UI** with real-time search, validation, and cache optimization.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🧩 Authentication
+- Secure **Login / Logout** system.
+- Protected routes and redirection for authenticated users.
+- JWT-based (or mock) authentication for session handling.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 📦 Products Management
+- **Display all products** with **pagination** for efficient browsing.
+- **Real-time search** — instantly filter products by name.
+- **Add, Edit, and Delete products** with smooth user experience.
+- **Confirmation pop-up** before deletion.
+- **Client-side form validation** using Zod and React Hook Form.
+- **Inline validation messages** and helpful error handling.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🗂️ Categories
+- Fetch and display available categories dynamically.
+- Assign product categories during creation or update.
+- Update category relation seamlessly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### ⚡ API & Data Layer
+- Built using **Redux Toolkit Query** for data fetching and caching.
+- Implements **cache invalidation** and **automatic refetching** after create, update, or delete operations.
+- Modular API setup in `lib/api.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🧠 Form Validation (with Zod)
+- Ensures correct data structure and type safety.
+- Custom rules:
+  - Product name: required
+  - Price: must be a positive number
+  - Category: required
+  - Image: must be a valid URL
+
+---
+
+### 🎨 UI / UX Highlights
+- **Modern & clean design** with Tailwind CSS.
+- **Responsive** — optimized for both desktop and mobile.
+- **Loading and error states** for smooth feedback.
+- Clear button states (`Saving...`, `Deleting...`, etc.).
+- Consistent typography, spacing, and visual rhythm.
+
+---
+
+### 🧭 Routing & Navigation
+- Built with **Next.js App Router**.
+- Pages:
+  - `/login` — User authentication
+  - `/products` — Product listing and search
+  - `/products/create` — Create product
+  - `/products/[id]` — View product details
+  - `/products/[id]/edit` — Edit existing product
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|-----------|-------------|
+| **Frontend Framework** | Next.js 14 (App Router) |
+| **Language** | TypeScript |
+| **State Management** | Redux Toolkit Query |
+| **UI Styling** | Tailwind CSS |
+| **Validation** | Zod + React Hook Form |
+| **Deployment** | Vercel |
+
+
+⭐ **If you like this project, give it a star and share it!**
